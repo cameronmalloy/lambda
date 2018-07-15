@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>Magic: The Lambda-ing</Title>
+        <link rel="stylesheet" href="styles/main.css">
+    </head>
+    <body>
+        <div class="lambda-wrapper">
+            <div class="secret">
+                <form id="secret-form">
+                    <input id="secret-word" />
+                    <button id="secret-button">Enter</button>
+                </form>
+            </div>
+
+            <ul id="events">
+            </ul>
+
+            <div class="chat-wrapper">
+                <form id="chat-form">
+                    <input id="chat" />
+                    <button id="say">Say</button>
+                </form>
+            </div>
+
+            <div class="button-wrapper">
+                <button id="1" class="turn">1</button>
+                <button id="2" class="turn">2</button>
+                <button id="3" class="turn">3</button>
+                <button id="4" class="turn">4</button>
+                <button id="5" class="turn">5</button>
+            </div>
+            
+            <div class="cards">
+                <p id="card1"></p>
+                <p id="card2"></p>
+                <p id="card3"></p>
+                <p id="card4"></p>
+                <p id="card5"></p>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="src/client.js"></script>
+    </body>
+</html>
