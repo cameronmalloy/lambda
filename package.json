@@ -21,6 +21,7 @@
   "homepage": "https://github.com/cameronmalloy/lambda#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "pg": "^7.4.3",
     "socketio": "^1.0.0"
   },
   "devDependencies": {
