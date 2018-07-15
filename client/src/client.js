@@ -9,11 +9,23 @@ const writeEvent = (text) => {
 };
 
 const writeCards = (array) => {
+    for (let i = 0; i < array.length; i++) {
+        /*if (array[i] == undefined) {
+            document.getElementById(`card${i+1}`).innerHTML=``;
+            continue;
+        }*/
+        document.getElementById(`card${i+1}`).innerHTML=`${i+1}. Name: ${array[i].name} || Attack: ${array[i].attack} || Defense: ${array[i].defense} || Role: ${array[i].role}`;
+    }
+    for (let i = array.length; i < 12; i++) {
+        document.getElementById(`card${i+1}`).innerHTML=``;
+    }
+    /*
     document.getElementById('card1').innerHTML=`1. Name: ${array[0].name} || Attack: ${array[0].attack} || Defense: ${array[0].defense} || Role: ${array[0].role}`;
     document.getElementById('card2').innerHTML=`2. Name: ${array[1].name} || Attack: ${array[1].attack} || Defense: ${array[1].defense} || Role: ${array[1].role}`;
     document.getElementById('card3').innerHTML=`3. Name: ${array[2].name} || Attack: ${array[2].attack} || Defense: ${array[2].defense} || Role: ${array[2].role}`;
     document.getElementById('card4').innerHTML=`4. Name: ${array[3].name} || Attack: ${array[3].attack} || Defense: ${array[3].defense} || Role: ${array[3].role}`;
     document.getElementById('card5').innerHTML=`5. Name: ${array[4].name} || Attack: ${array[4].attack} || Defense: ${array[4].defense} || Role: ${array[4].role}`;
+    */
     //array.forEach((card, index) => {
      //   document.getElementsByTagName("p")[i].innerHTML="yo";
         //=`Name: ${card.name} Attack: ${card.attack} Defense: ${card.defense} Role: ${card.role}`

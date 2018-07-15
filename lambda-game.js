@@ -23,7 +23,7 @@ class LambdaGame {
             });
         });
         
-        this.duel = new Game(this.player1, this.player2, 5);
+        this.duel = new Game(this.player1, this.player2, 100);
         this._updateCards();
         this._sendToPlayer(0, '!=====You are Player 1=====!')
         this._sendToPlayer(1, '!=====You are Player 2=====!')
@@ -54,12 +54,19 @@ class LambdaGame {
     _onTurn(playerIndex, turn) {
         if (this._turns[playerIndex] != null) {
             return;
-        }
-        this._turns[playerIndex] = turn - 1;
-        this._sendToPlayer(playerIndex, `You selected card ${turn}`);
-        this._updateScroll();
-        if (this._checkPlayTurn()) {
-            this._playTurn()
+        } else if ((playerIndex == 0) && (this.player1.hand[turn - 1] == undefined)) {
+            this._sendToPlayer(0, 'Please pick a valid card');
+            return;
+        } else if ((playerIndex == 1) && (this.player2.hand[turn - 1] == undefined)) {
+            this._sendToPlayer(1, 'Please pick a valid card');
+            return;
+        } else {
+            this._turns[playerIndex] = turn - 1;
+            this._sendToPlayer(playerIndex, `You selected card ${turn}`);
+            this._updateScroll();
+            if (this._checkPlayTurn()) {
+                this._playTurn()
+            }
         }
     }
 
@@ -76,10 +83,14 @@ class LambdaGame {
         this.player1.play(this._turns[0]);
         this.player2.play(this._turns[1]);
         const winner = this.duel.play_round(card1, card2, this.player1, this.player2);
+        if (this.player1.deck.cards.length > 0) {
+            this.player1.draw();
+        }
+        if (this.player2.deck.cards.length > 0) {
+            this.player2.draw();
+        }
         this._print(card1, card2, winner);
         this._turns = [null, null];
-        this.player1.draw();
-        this.player2.draw();
         this._updateCards();
     }
 
@@ -168,26 +179,34 @@ class LambdaGame {
         this._sendToPlayers(line);
 
         const isOver = this.duel.game_won();
-        if (isOver == 1) {
-            line = '========================================================================';
-            this._sendToPlayers(line);
+        let p1len = this.player1.hand.length;
+        let p2len = this.player2.hand.length;
+        if (isOver == 1 || p2len == 0) {
             line = 'You are undefeated!';
             this._sendToPlayer(0, line);
-            line = `You have been defeated! You'll get'em next time!`
+            line = `You have been defeated! You'll get'em next time!`;
             this._sendToPlayer(1, line);
+            if (p2len == 0) {
+                line = `You ran out of cards`;
+                this._sendToPlayer(1, line);
+            }
+            if (this.player2)
             line = '========================================================================';
             this._sendToPlayers(line);
-        } else if(isOver == 2) {
-            line = '========================================================================';
-            this._sendToPlayers(line);
+        } else if(isOver == 2 || p1len == 0) {
             line = 'You are undefeated!';
             this._sendToPlayer(1, line);
             line = `You have been defeated! You'll get'em next time!`
             this._sendToPlayer(0, line);
+            if (p1len == 0) {
+                line = `You ran out of cards`;
+                this._sendToPlayer(0, line);
+            }
             line = '========================================================================';
             this._sendToPlayers(line);
         }
         this._updateScroll();
+
     }
 }
 

@@ -40,9 +40,21 @@ class Decks {
         const tiffany = new Card('Tiffany, A bridge Troll', 1500, 2100, 'tutor');
         const wenyuan = new Card('Wenyuan', 1300, 1800, 'tutor');
 
+        const denero = new Card('Denero', 5000, 5000, 'professor');
+
+        /*const test1 = new Card('test1', 1000, 1000);
+        const test2 = new Card('test2', 1000, 1000);
+        const test3 = new Card('test3', 1000, 1000);
+        const test4 = new Card('test4', 1000, 1000);
+        const test5 = new Card('test5', 1000, 1000);
+        const test6 = new Card('test6', 1000, 1000);
+        const test7 = new Card('test7', 1000, 1000);
+        const test8 = new Card('test8', 1000, 1000);*/
+
         this.standard_cards = [james, jen, mitas, tammy, alexs, alexw, cameron, chae, chris, christina,
         derek, erica, griffin, jemin, jennifer, jenny, kevin, nancy, aaron, ajan, amyh, amym, asli,
-        daniel, jacob, hermish, jemmy, jericho, kate, lauren, rachel, shide, tiffany, wenyuan];
+        daniel, jacob, hermish, jemmy, jericho, kate, lauren, rachel, shide, tiffany, wenyuan, denero];
+        //this.standard_cards = [denero, test1, test2, test3, test4, test5, test6, test7, test8];
         this.standard_deck = new Deck(this.standard_cards);
     }
 }
