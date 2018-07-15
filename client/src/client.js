@@ -73,8 +73,7 @@ sock.on('updateCards', writeCards);
 sock.on('updateScroll', scrollDown);
 
 writeEvent('Magic: The Lambda-ing');
-writeEvent('Rules: Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player');
-writeEvent(`based on this formula: Player's attack`);
+writeEvent(`Rules: Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player based on this formula: Player's attack - (opponent's defense // 2)`);
 writeEvent('Effects: Each staff member has a special effect:');
 writeEvent('Tutors will make the opponent discard the first 3 cards in their hand and make the opponent redraw the 3.');
 writeEvent('TAs will swap the attack and defense of the opponent before power calculations.');

@@ -204,7 +204,6 @@ class LambdaGame {
                 line = `You ran out of cards`;
                 this._sendToPlayer(1, line);
             }
-            if (this.player2)
             line = '========================================================================';
             this._sendToPlayers(line);
         } else if(isOver == 2 || p1len == 0) {

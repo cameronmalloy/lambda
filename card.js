@@ -31,16 +31,6 @@ class Card {
             }
             const cardToAdd = new Card(other_card.name, other_card.attack, other_card.defense, other_card.role);
             player.deck.cards.push(cardToAdd);
-            /*let added = false;
-            for (let i = 0; i < player.hand.length; i++) {
-                if (player.hand[i] == undefined) {
-                    player.hand[i] = cardToAdd;
-                    added = true;
-                }
-            }
-            if (!added) {
-                player.hand.push(cardToAdd);
-            }*/
             player.hand.push(cardToAdd);
             player.deck.shuffle(player.deck.cards);
         } else if (this.role == 'professor') {
@@ -50,16 +40,6 @@ class Card {
             }
             const cardToAdd = new Card(other_card.name, other_card.attack, other_card.defense, other_card.role);
             player.deck.cards.push(cardToAdd);
-            /*let added = false;
-            for (let i = 0; i < player.hand.length; i++) {
-                if (player.hand[i] == undefined) {
-                    player.hand[i] = cardToAdd;
-                    added = true;
-                }
-            }
-            if (!added) {
-                player.hand.push(cardToAdd);
-            }*/
             player.hand.push(cardToAdd);
             let orig_len = opponent.deck.cards.length;
             for (let i = 0; i < opponent.deck.cards.length; i++) {
@@ -68,6 +48,7 @@ class Card {
                     opponent.deck.cards.splice(i, 1);
                 }
             }
+            player.deck.shuffle(player.deck.cards);
             console.log(orig_len - opponent.deck.cards.length);
         }
     }
