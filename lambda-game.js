@@ -56,9 +56,11 @@ class LambdaGame {
             return;
         } else if ((playerIndex == 0) && ((this.player1.hand[turn - 1] == undefined) || (turn - 1 > this.player1.hand.length))) {
             this._sendToPlayer(0, 'Please pick a valid card');
+            this._updateScroll();
             return;
         } else if ((playerIndex == 1) && ((this.player2.hand[turn - 1] == undefined) || (turn - 1 > this.player2.hand.length))) {
             this._sendToPlayer(1, 'Please pick a valid card');
+            this._updateScroll();
             return;
         } else {
             this._turns[playerIndex] = turn - 1;
@@ -181,16 +183,7 @@ class LambdaGame {
             this._sendToPlayers(line);
         }
 
-        line = '========================================================================';
-        this._sendToPlayers(line);
-        line = '<==========Scores==========>';
-        this._sendToPlayers(line);
-        line = `==> Player 1: ${this.duel.p1Score}`;
-        this._sendToPlayers(line);
-        line = `==> Player 2: ${this.duel.p2Score}`;
-        this._sendToPlayers(line);
-        line = '========================================================================';
-        this._sendToPlayers(line);
+        this._printScore();
 
         const isOver = this.duel.game_won();
         let p1len = this.player1.hand.length;
@@ -219,7 +212,19 @@ class LambdaGame {
             this._sendToPlayers(line);
         }
         this._updateScroll();
+    }
 
+    _printScore() {
+        let line = '========================================================================';
+        this._sendToPlayers(line);
+        line = '<==========Scores==========>';
+        this._sendToPlayers(line);
+        line = `==> Player 1: ${this.duel.p1Score}`;
+        this._sendToPlayers(line);
+        line = `==> Player 2: ${this.duel.p2Score}`;
+        this._sendToPlayers(line);
+        line = '========================================================================';
+        this._sendToPlayers(line);
     }
 }
 
