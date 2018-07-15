@@ -42,7 +42,7 @@ body {
   .lambda-wrapper {
     background-color: rgb(255, 255, 255);
     width: 700px;
-    height: 900px;
+    height: 800px;
     max-height: 1100px;
     margin: 20px auto;
     display: flex;
@@ -58,7 +58,7 @@ body {
     border-bottom: 1px solid lightgrey;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 500px;
+    height: 400px;
   }
   
   #events li {
@@ -88,6 +88,11 @@ body {
     display: flex;
     padding: 10px 50px;
     justify-content: space-evenly;
+  }
+
+  form#secret-form {
+    text-align: center;
+    margin-top: 5px;
   }
 
   #name-button:disabled,
@@ -125,4 +130,14 @@ body {
     margin-right: 3%;
     height: 200px;
     overflow-y: scroll;
+  }
+
+  .game-title {
+    margin-top: 20px;
+    display: relative;
+    font-size: 3rem;
+    font-weight: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
