@@ -158,12 +158,26 @@ class LambdaGame {
         } else if (role1 == 'instructor') {
             line = `**Effect** ${name1} inspired the team members! Future draws for Player 1 will have +300 ATK and +300 DEF`;
             this._sendToPlayers(line);
+            line = `**Effect** ${name1} took control of ${name2} and spawned another one for his/her hand and deck!`;
+            this._sendToPlayers(line);
+        } else if (role1 == 'professor') {
+            line = `**Effect** ${name1} siphoned ${name2}'s attack and defense and added it (${attack2} ATK and ${defense2} DEF) to all the staff in his/her deck!`;
+            this._sendToPlayers(line);
+            line = `**Effect** ${name1} took control of ${name2} and spawned another one for his/her hand and deck!`;
+            this._sendToPlayers(line);
         }
         if (role2 == 'tutor') {
             line = `**Effect** ${name2} made Player 1 swap their last 3 cards :O`;
             this._sendToPlayers(line);
         } else if (role2 == 'instructor') {
             line = `**Effect** ${name2} inspired the team members! Future draws for Player 2 will have +300 ATK and +300 DEF`;
+            this._sendToPlayers(line);
+            line = `**Effect** ${name2} took control of ${name1} and spawned another one for his/her hand and deck!`;
+            this._sendToPlayers(line);
+        } else if (role2 == 'professor') {
+            line = `**Effect** ${name2} siphoned ${name1}'s attack and defense and added it (${attack1} ATK and ${defense1} DEF) to all the staff in his/her deck!`;
+            this._sendToPlayers(line);
+            line = `**Effect** ${name2} took control of ${name1} and spawned another one for his/her hand and deck!`;
             this._sendToPlayers(line);
         }
 
