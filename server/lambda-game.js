@@ -57,7 +57,6 @@ class LambdaGame {
         }
         this._turns[playerIndex] = turn - 1;
         this._updateScroll();
-        dnod
         this._sendToPlayer(playerIndex, `You selected card ${turn}`);
         if (this._checkPlayTurn()) {
             this._playTurn()

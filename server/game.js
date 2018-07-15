@@ -16,7 +16,7 @@ class Game {
             this.p1Score += 1;
             return 1;
         } else if (p1_power < p2_power) {
-            this.p2Score += 2;
+            this.p2Score += 1;
             return 2;
         } else {
             return 0;
@@ -24,7 +24,7 @@ class Game {
     }
 
     game_won() {
-        if (this.p1Score < goal && this.p2Score < goal) {
+        if (this.p1Score < this.goal && this.p2Score < this.goal) {
             return 0;
         } else if (this.p1Score > this.p2Score) {
             return 1;

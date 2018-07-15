@@ -1,6 +1,6 @@
 const http = require('http');
 const express = require('express');
-const socketio = require('scoket.io');
+const socketio = require('socket.io');
 
 const LambdaGame = require('./lambda-game');
 

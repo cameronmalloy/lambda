@@ -1,23 +1,25 @@
 class Player {
     constructor(deck, name) {
-        self.name = name;
-        self.deck = deck;
-        self.hand = draw(5);
+        this.name = name;
+        this.deck = deck;
+        this.hand = [];
+        this.drawNum(5);
     }
 
     drawNum(num) {
         for (let i = 0; i < num; i++) {
-            self.hand.push(self.deck.draw());
+            this.hand.push(this.deck.draw());
         }
     }
 
     draw() {
-        self.hand.push(self.deck.draw());
+        this.hand.push(this.deck.draw());
     }
 
     play(card_index) {
-        let value = self.hand[card_index];
-        self.hand.splice(card_index, 1);
+        let value = this.hand[card_index];
+        this.hand.splice(card_index, 1);
+        return value;
     }
 }
 
