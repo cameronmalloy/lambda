@@ -21,6 +21,7 @@ io.on('connection', (sock) => {
     
     sock.on('message', (text) => {
         io.emit('message', text);
+        io.emit('updateScroll');
     });
 
     sock.on('secret', (key) => {
