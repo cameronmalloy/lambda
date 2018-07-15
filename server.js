@@ -26,17 +26,17 @@ io.on('connection', (sock) => {
     });
 
     sock.on('secret', (key) => {
-        if (matchMap.has(key)) {
-            firstSock = matchMap.get(key);
-            matchMap.delete(key);
-            new LambdaGame(firstSock, sock);
+        if (matchMap.has(key[1])) {
+            firstSock = matchMap.get(key[1]);
+            matchMap.delete(key[1]);
+            new LambdaGame(firstSock[0], sock, firstSock[1], key[0]);
         }
         else {
-            matchMap.set(key, sock);
+            matchMap.set(key[1], [sock, key[0]]);
             sock.emit('message', 'Waiting for opponent');
         }
     });
-})
+});
 
 server.on('error', (err) => {
     console.error('Server error:', err);

@@ -6,16 +6,30 @@ const Game = require('./game');
 
 class LambdaGame {
 
-    constructor(p1, p2) {
+    constructor(p1, p2, name1, name2) {
         this._players = [p1, p2];
         this._turns = [null, null];
+        console.log(name1);
 
         this._sendToPlayers('Game is Starting');
 
         let deck1 = new Decks();
         let deck2 = new Decks();
-        this.player1 = new Player(deck1.standard_deck, 'Player 1');
-        this.player2 = new Player(deck2.standard_deck, 'Player 2');
+        if (name1 == 'Name') {
+            name1 = 'Player 1';
+        }
+        if (name2 == 'Name') {
+            name2 = 'Player 2';
+        }
+        this.player1 = new Player(deck1.standard_deck, name1);
+        this.player2 = new Player(deck2.standard_deck, name2);
+
+        if (this.player1.name == 'Name') {
+            this._sendToPlayer(0, '!=====You are Player 1=====!')
+        }
+        if (this.player2.name == 'Name') {
+            this._sendToPlayer(1, '!=====You are Player 2=====!')
+        }
 
         this._players.forEach((player, index) => {
             player.on('turn', (turn) => {
@@ -23,10 +37,10 @@ class LambdaGame {
             });
         });
         
-        this.duel = new Game(this.player1, this.player2, 10);
+        this.duel = new Game(this.player1, this.player2, 3);
         this._updateCards();
-        this._sendToPlayer(0, '!=====You are Player 1=====!')
-        this._sendToPlayer(1, '!=====You are Player 2=====!')
+        /*this._sendToPlayer(0, '!=====You are Player 1=====!')
+        this._sendToPlayer(1, '!=====You are Player 2=====!')*/
     }
 
     _updateCards() {
@@ -109,32 +123,7 @@ class LambdaGame {
         let line = '========================================================================';
         this._sendToPlayers(line);
 
-        line = `Player 1 played ${name1} with ATK: ${attack1} and DEF: ${defense1}`;
-        this._sendToPlayers(line);
-        line = `Player 2 played ${name2} with ATK: ${attack2} and DEF: ${defense2}`;
-        this._sendToPlayers(line);
-
-        if (role1 == 'ta') {
-            line = `**Effect** ${name1} swapped the ATK and DEF of ${name2} before calculations`;
-            const tmp = attack2;
-            attack2 = defense2;
-            defense2 = tmp;
-            this._sendToPlayers(line);
-        }
-        if (role2 == 'ta') {
-            line = `**Effect** ${name2} swapped the ATK and DEF of ${name1} before calculations`;
-            const tmp = attack1;
-            attack1 = defense1;
-            defense1 = tmp;
-            this._sendToPlayers(line);
-        }
-
-        const p1Power = attack1 - Math.floor(defense2 / 2);
-        line = `Player 1's Power Points: ${attack1} - ${defense2} // 2 ==> ${p1Power}`;
-        this._sendToPlayers(line);
-        const p2Power = attack2 - Math.floor(defense1 / 2);
-        line = `Player 2's Power Points: ${attack2} - ${defense1} // 2 ==> ${p2Power}`;
-        this._sendToPlayers(line);
+        this._printAndCalcPowers(name1, attack1, defense1, role1, name2, attack2, defense2, role2);
 
         if (winner == 1) {
             line = 'You won the round!';
@@ -154,11 +143,66 @@ class LambdaGame {
         line = '========================================================================';
         this._sendToPlayers(line);
 
+        this._printEffects(name1, attack1, defense1, role1, name2, attack2, defense2, role2);
+        
+        this._printScore();
+
+        if (this._checkGameOver()) {
+            this._endGame();
+        }
+
+        this._updateScroll();
+    }
+
+    _printScore() {
+        let line = '========================================================================';
+        this._sendToPlayers(line);
+        line = '<==========Scores==========>';
+        this._sendToPlayers(line);
+        line = `==> ${this.player1.name}: ${this.duel.p1Score}`;
+        this._sendToPlayers(line);
+        line = `==> ${this.player2.name}: ${this.duel.p2Score}`;
+        this._sendToPlayers(line);
+        line = '========================================================================';
+        this._sendToPlayers(line);
+    }
+
+    _printAndCalcPowers(name1, attack1, defense1, role1, name2, attack2, defense2, role2) {
+        let line = `${this.player1.name} played ${name1} with ATK: ${attack1} and DEF: ${defense1}`;
+        this._sendToPlayers(line);
+        line = `${this.player2.name} played ${name2} with ATK: ${attack2} and DEF: ${defense2}`;
+        this._sendToPlayers(line);
+
+        if (role1 == 'ta') {
+            line = `**Effect** ${name1} swapped the ATK and DEF of ${name2} before calculations`;
+            const tmp = attack2;
+            attack2 = defense2;
+            defense2 = tmp;
+            this._sendToPlayers(line);
+        }
+        if (role2 == 'ta') {
+            line = `**Effect** ${name2} swapped the ATK and DEF of ${name1} before calculations`;
+            const tmp = attack1;
+            attack1 = defense1;
+            defense1 = tmp;
+            this._sendToPlayers(line);
+        }
+
+        const p1Power = attack1 - Math.floor(defense2 / 2);
+        line = `${this.player1.name}'s Power Points: ${attack1} - ${defense2} // 2 ==> ${p1Power}`;
+        this._sendToPlayers(line);
+        const p2Power = attack2 - Math.floor(defense1 / 2);
+        line = `${this.player2.name}'s Power Points: ${attack2} - ${defense1} // 2 ==> ${p2Power}`;
+        this._sendToPlayers(line);
+    }
+
+    _printEffects(name1, attack1, defense1, role1, name2, attack2, defense2, role2) {
+        let line = '';
         if (role1 == 'tutor') {
-            line = `**Effect** ${name1} made Player 2 swap their last 3 cards :O`;
+            line = `**Effect** ${name1} made ${this.player2.name} swap their last 3 cards :O`;
             this._sendToPlayers(line);
         } else if (role1 == 'instructor') {
-            line = `**Effect** ${name1} inspired the team members! Future draws for Player 1 will have +300 ATK and +300 DEF`;
+            line = `**Effect** ${name1} inspired the team members! Future draws for ${this.player1.name} will have +300 ATK and +300 DEF`;
             this._sendToPlayers(line);
             line = `**Effect** ${name1} took control of ${name2} and spawned another one for his/her hand and deck!`;
             this._sendToPlayers(line);
@@ -169,10 +213,10 @@ class LambdaGame {
             this._sendToPlayers(line);
         }
         if (role2 == 'tutor') {
-            line = `**Effect** ${name2} made Player 1 swap their last 3 cards :O`;
+            line = `**Effect** ${name2} made ${this.player1.name} swap their last 3 cards :O`;
             this._sendToPlayers(line);
         } else if (role2 == 'instructor') {
-            line = `**Effect** ${name2} inspired the team members! Future draws for Player 2 will have +300 ATK and +300 DEF`;
+            line = `**Effect** ${name2} inspired the team members! Future draws for ${this.player2.name} will have +300 ATK and +300 DEF`;
             this._sendToPlayers(line);
             line = `**Effect** ${name2} took control of ${name1} and spawned another one for his/her hand and deck!`;
             this._sendToPlayers(line);
@@ -183,9 +227,12 @@ class LambdaGame {
             this._sendToPlayers(line);
         }
 
-        this._printScore();
+    }
 
+    _checkGameOver() {
+        let line = '';
         const isOver = this.duel.game_won();
+        let gameEnded = false;
         let p1len = this.player1.hand.length;
         let p2len = this.player2.hand.length;
         if (isOver == 1 || p2len == 0) {
@@ -199,6 +246,7 @@ class LambdaGame {
             }
             line = '========================================================================';
             this._sendToPlayers(line);
+            gameEnded = true;
         } else if(isOver == 2 || p1len == 0) {
             line = 'You are undefeated!';
             this._sendToPlayer(1, line);
@@ -210,21 +258,32 @@ class LambdaGame {
             }
             line = '========================================================================';
             this._sendToPlayers(line);
+            gameEnded = true;
         }
-        this._updateScroll();
+        return gameEnded;
     }
 
-    _printScore() {
-        let line = '========================================================================';
+    _endGame() {
+        this.player1.deck.cards = [];
+        this.player1.hand = [];
+        this.player2.deck.cards = [];
+        this.player2.hand = [];
+        let line = 'please refresh to start a new game';
         this._sendToPlayers(line);
-        line = '<==========Scores==========>';
+    }
+
+    _printResetGame() {
+        let line = '........................................................................'
         this._sendToPlayers(line);
-        line = `==> Player 1: ${this.duel.p1Score}`;
+        line = '........................................................................'
         this._sendToPlayers(line);
-        line = `==> Player 2: ${this.duel.p2Score}`;
+        line = 'Resetting Game'
         this._sendToPlayers(line);
-        line = '========================================================================';
+        line = '........................................................................'
         this._sendToPlayers(line);
+        line = '........................................................................'
+        this._sendToPlayers(line);
+
     }
 }
 

@@ -48,14 +48,19 @@ const onFormSubmitted = (e) => {
 
 const onSecretSubmitted = (e) => {
     e.preventDefault();
-    const input = document.querySelector('#secret-word');
-    const text = input.value;
-    input.value = '';
+    const nameDoc = document.querySelector('#name-word');
+    const secretDoc = document.querySelector('#secret-word');
+    const name = nameDoc.value;
+    const secret = secretDoc.value;
+    name.value = '';
+    secret.value = '';
     document.querySelector('#secret-button').disabled = true;
     document.querySelector('#secret-word').disabled = true;
     document.querySelector('#secret-word').value = 'Disabled';
+    document.querySelector('#name-word').disabled = true;
+    document.querySelector('#name-word').value = 'Disabled';
 
-    sock.emit('secret', text);
+    sock.emit('secret', [name, secret]);
 };
 
 const addButtonListeners = () => {
