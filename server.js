@@ -6,7 +6,7 @@ const LambdaGame = require('./lambda-game');
 
 const app = express();
 
-const clientPath = `${__dirname}/../client`;
+const clientPath = `${__dirname}/client`;
 
 app.use(express.static(clientPath));
 
