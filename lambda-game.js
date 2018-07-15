@@ -23,7 +23,7 @@ class LambdaGame {
             });
         });
         
-        this.duel = new Game(this.player1, this.player2, 100);
+        this.duel = new Game(this.player1, this.player2, 10);
         this._updateCards();
         this._sendToPlayer(0, '!=====You are Player 1=====!')
         this._sendToPlayer(1, '!=====You are Player 2=====!')
@@ -54,10 +54,10 @@ class LambdaGame {
     _onTurn(playerIndex, turn) {
         if (this._turns[playerIndex] != null) {
             return;
-        } else if ((playerIndex == 0) && (this.player1.hand[turn - 1] == undefined)) {
+        } else if ((playerIndex == 0) && ((this.player1.hand[turn - 1] == undefined) || (turn - 1 > this.player1.hand.length))) {
             this._sendToPlayer(0, 'Please pick a valid card');
             return;
-        } else if ((playerIndex == 1) && (this.player2.hand[turn - 1] == undefined)) {
+        } else if ((playerIndex == 1) && ((this.player2.hand[turn - 1] == undefined) || (turn - 1 > this.player2.hand.length))) {
             this._sendToPlayer(1, 'Please pick a valid card');
             return;
         } else {

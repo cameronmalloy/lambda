@@ -59,7 +59,7 @@ const onSecretSubmitted = (e) => {
 };
 
 const addButtonListeners = () => {
-    ['1', '2', '3', '4', '5'].forEach((id) => {
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].forEach((id) => {
         const button = document.getElementById(id);
         button.addEventListener('click', () => {
             sock.emit('turn', id)
