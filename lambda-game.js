@@ -37,7 +37,7 @@ class LambdaGame {
             });
         });
         
-        this.duel = new Game(this.player1, this.player2, 3);
+        this.duel = new Game(this.player1, this.player2, 5);
         this._updateCards();
         /*this._sendToPlayer(0, '!=====You are Player 1=====!')
         this._sendToPlayer(1, '!=====You are Player 2=====!')*/

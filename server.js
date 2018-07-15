@@ -34,6 +34,7 @@ io.on('connection', (sock) => {
         else {
             matchMap.set(key[1], [sock, key[0]]);
             sock.emit('message', 'Waiting for opponent');
+            sock.emit('updateScroll');
         }
     });
 });
