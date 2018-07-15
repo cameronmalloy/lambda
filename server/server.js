@@ -18,6 +18,10 @@ let matchMap = new Map();
 
 io.on('connection', (sock) => {
     
+    sock.on('message', (text) => {
+        io.emit('message', text);
+    });
+
     sock.on('secret', (key) => {
         if (matchMap.has(key)) {
             firstSock = matchMap.get(key);
