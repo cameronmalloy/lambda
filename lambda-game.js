@@ -71,51 +71,19 @@ class LambdaGame {
     }
 
     _playTurn() {
-        console.log(this.player1.hand);
         const card1 = this.player1.hand[this._turns[0]];
         const card2 = this.player2.hand[this._turns[1]];
         this.player1.play(this._turns[0]);
         this.player2.play(this._turns[1]);
         const winner = this.duel.play_round(card1, card2, this.player1, this.player2);
-        const isOver = this.duel.game_won();
-        let line = '';
-        if (isOver == 0) {
-            if (winner == 1) {
-                console.log('player 1 wins');
-            } else if (winner == 2) {
-                console.log('player 2 wins');
-            } else {
-                console.log('tie');
-            }
-            this._draw(card1, card2, winner);
-            this._turns = [null, null];
-            this.player1.draw();
-            this.player2.draw();
-            this._updateCards();
-        } else if (isOver == 1)
-        if (this.duel.game_won()) {
-            line = '========================================================================';
-            this._sendToPlayers(line);
-            line = 'You are undefeated!';
-            this._sendToPlayer(0, line);
-            line = `You have been defeated! You'll get'em next time!`
-            this._sendToPlayer(1, line);
-            line = '========================================================================';
-            this._sendToPlayers(line);
-        } else {
-            line = '========================================================================';
-            this._sendToPlayers(line);
-            line = 'You are undefeated!';
-            this._sendToPlayer(1, line);
-            line = `You have been defeated! You'll get'em next time!`
-            this._sendToPlayer(0, line);
-            line = '========================================================================';
-            this._sendToPlayers(line);
-        }
-    console.log(this.player1.hand);
+        this._print(card1, card2, winner);
+        this._turns = [null, null];
+        this.player1.draw();
+        this.player2.draw();
+        this._updateCards();
     }
 
-    _draw(card1, card2, winner) {
+    _print(card1, card2, winner) {
         const name1 = card1.name;
         let attack1 = card1.attack;
         let defense1 = card1.defense;
@@ -199,6 +167,26 @@ class LambdaGame {
         line = '========================================================================';
         this._sendToPlayers(line);
 
+        const isOver = this.duel.game_won();
+        if (isOver == 1) {
+            line = '========================================================================';
+            this._sendToPlayers(line);
+            line = 'You are undefeated!';
+            this._sendToPlayer(0, line);
+            line = `You have been defeated! You'll get'em next time!`
+            this._sendToPlayer(1, line);
+            line = '========================================================================';
+            this._sendToPlayers(line);
+        } else if(isOver == 2) {
+            line = '========================================================================';
+            this._sendToPlayers(line);
+            line = 'You are undefeated!';
+            this._sendToPlayer(1, line);
+            line = `You have been defeated! You'll get'em next time!`
+            this._sendToPlayer(0, line);
+            line = '========================================================================';
+            this._sendToPlayers(line);
+        }
         this._updateScroll();
     }
 }

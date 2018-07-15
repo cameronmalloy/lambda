@@ -40,7 +40,7 @@ server.on('error', (err) => {
     console.error('Server error:', err);
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000//8080;
 
 server.listen(port, () => {
     console.log('LG started on 8080');
