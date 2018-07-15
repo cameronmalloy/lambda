@@ -1,3 +1,4 @@
+
 class Game {
     constructor(p1, p2, goal) {
         this.p1 = p1;
@@ -7,6 +8,12 @@ class Game {
         this.p2Score = 0;
     }
 
+    /**
+     * Simulates a round by first
+     * 1. Using each cards effect (before the next draw)
+     * 2. Calculating the power of each card (so TA's have their effect first)
+     * 3. Calculating who won the round and updating the score
+     */
     play_round(card1, card2, player1, player2) {
         card1.effect(card2, player1, player2);
         card2.effect(card1, player2, player1);

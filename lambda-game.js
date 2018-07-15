@@ -1,8 +1,10 @@
-const Deck = require('./deck.js');
-const Player = require('./player.js');
-const Card = require('./card');
-const Decks = require('./decks');
-const Game = require('./game');
+const Player = require('./game_mechs/player.js');
+const Decks = require('./game_mechs/decks');
+const Game = require('./game_mechs/game');
+
+/**
+ * This is a huge file, that should probably be broken into a few smaller ones my bad... :P
+ */
 
 class LambdaGame {
 
@@ -15,22 +17,21 @@ class LambdaGame {
 
         let deck1 = new Decks();
         let deck2 = new Decks();
+
+        //if they didn't choose a name, default to Player X
+        //send them a message notifying them of their name
         if (name1 == 'Name') {
             name1 = 'Player 1';
+            this._sendToPlayer(0, '!=====You are Player 1=====!')
         }
         if (name2 == 'Name') {
             name2 = 'Player 2';
+            this._sendToPlayer(1, '!=====You are Player 2=====!')
         }
         this.player1 = new Player(deck1.standard_deck, name1);
         this.player2 = new Player(deck2.standard_deck, name2);
 
-        if (this.player1.name == 'Name') {
-            this._sendToPlayer(0, '!=====You are Player 1=====!')
-        }
-        if (this.player2.name == 'Name') {
-            this._sendToPlayer(1, '!=====You are Player 2=====!')
-        }
-
+        //use event listener for turns based on the numbered buttons
         this._players.forEach((player, index) => {
             player.on('turn', (turn) => {
                 this._onTurn(index, turn);
@@ -39,8 +40,7 @@ class LambdaGame {
         
         this.duel = new Game(this.player1, this.player2, 5);
         this._updateCards();
-        /*this._sendToPlayer(0, '!=====You are Player 1=====!')
-        this._sendToPlayer(1, '!=====You are Player 2=====!')*/
+        this._updateScroll();
     }
 
     _updateCards() {

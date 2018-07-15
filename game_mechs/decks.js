@@ -1,12 +1,18 @@
 const Card = require('./card');
 const Deck = require('./deck');
 
+/**
+ * Creates all the decks. I was kinda lazy and didn't make another 4 classes
+ * that inherited from Card for types, so they're passed in as strings into
+ * the Card class as strings
+ */
+
 class Decks {
     constructor() {
         const james = new Card('James, Voice of Zendikar', 3000, 1500, 'instructor');
-        const jen = new Card('Jen', 2000, 4000, 'instructor');
+        const jen = new Card('Jen, The Scheme-r', 2000, 4000, 'instructor');
         const mitas = new Card('Mitas, Obelisk the Tormentor', 4000, 4000, 'instructor');
-        const tammy = new Card('Tammy', 2500, 3000, 'instructor');
+        const tammy = new Card('Tammy, The Architect', 2500, 3000, 'instructor');
 
         const alexs = new Card('President Lieutenant Stennet for Senate', 1800, 2200, 'ta');
         const alexw = new Card('Alex W, The Overclocked', 2800, 1700, 'ta');
@@ -18,10 +24,10 @@ class Decks {
         const erica = new Card('Erica, King Kong of the Arena', 1500, 1800, 'ta');
         const griffin = new Card('Griffin', 2700, 300, 'ta');
         const jemin = new Card('Jemin, Destroyer of Belgium', 2100, 2000, 'ta');
-        const jennifer = new Card('Jennifer', 1400, 2800, 'ta');
+        const jennifer = new Card('Jennifer, Zzzzzzz', 1400, 2800, 'ta');
         const jenny = new Card('Jenny, Dude of Asuh', 2500, 1800, 'ta');
         const kevin = new Card('Kevin', 2600, 1800, 'ta');
-        const nancy = new Card('Nancy the Shawe', 2300, 1400, 'ta');
+        const nancy = new Card('Nancy the Shaw', 2300, 1400, 'ta');
 
         const aaron = new Card('Aaron the Airbender', 2300, 1400, 'tutor');
         const ajan = new Card('Ajan', 1700, 1100, 'tutor');
@@ -29,18 +35,18 @@ class Decks {
         const amym = new Card('Amy M', 1900, 1500, 'tutor');
         const asli = new Card('Asli', 2000, 1600, 'tutor');
         const daniel = new Card('Daniel, Soylent Guardian', 1800, 1100, 'tutor');
-        const jacob = new Card('Jacob', 2200, 1600, 'tutor');
+        const jacob = new Card('Super Saiya Jacob', 2200, 1600, 'tutor');
         const hermish = new Card('Hermish', 2400, 600, 'tutor');
-        const jemmy = new Card('Jemmy, The Jem Collector', 1900, 1300, 'tutor');
+        const jemmy = new Card('Jemmy, The Zhou-ker of Gotham City', 1900, 1300, 'tutor');
         const jericho = new Card('Jericho, Cowboy of Tax Evasion', 1900, 1700, 'tutor');
         const kate = new Card('Kate, the Exponential Runtime of Ra', 1500, 2100, 'tutor');
-        const lauren = new Card('Scorin Lauren', 2700, 2000, 'tutor');
-        const rachel = new Card('Rachel Gene of Jeans de Jaen', 1100, 2300, 'tutor');
-        const shide = new Card('Shide', 2100, 600, 'tutor');
+        const lauren = new Card(`Scorin' Lauren`, 2700, 2000, 'tutor');
+        const rachel = new Card(`Rachel 'Gene of Jeans' de Jaen`, 1100, 2300, 'tutor');
+        const shide = new Card('The Sidhe', 2100, 600, 'tutor');
         const tiffany = new Card('Tiffany, A bridge Troll', 1500, 2100, 'tutor');
         const wenyuan = new Card('Wenyuan', 1300, 1800, 'tutor');
 
-        const denero = new Card('Denero', 5000, 5000, 'professor');
+        const denero = new Card('John DeNero, Protector of Abstraction Barriers', 5000, 5000, 'professor');
 
         /*const test1 = new Card('test1', 1000, 1000);
         const test2 = new Card('test2', 1000, 1000);
