@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "Magic: The Lambda-ing",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -17,5 +17,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.2"
+  },
+  "engines": {
+    "node": "8.11.2"
   }
 }
