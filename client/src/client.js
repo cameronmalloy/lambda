@@ -84,6 +84,10 @@ writeEvent('Tutors will make the opponent discard the first 3 cards in their han
 writeEvent('TAs will swap the attack and defense of the opponent before power calculations.');
 writeEvent('Instructors will buff the rest of the deck by adding +300 ATK and +300 DEF to each card in the deck. They will also take the opponents card and place it in their hand and deck.');
 writeEvent(`Professors will add the opponent's attack and defense to the remaining cards in their deck. Professors will also take a copy opponents card and place it in their hand and deck.`);
+writeEvent('========================================================================');
+writeEvent(`To start, type in a name and secret word into the boxes above and click enter. In order to connect to your opponent, you must have the same secret word when you hit 'Enter'`);
+writeEvent('========================================================================');
+
 
 document.querySelector('#chat-form').addEventListener('submit', onFormSubmitted);
 document.querySelector('#secret-form').addEventListener('submit', onSecretSubmitted);
