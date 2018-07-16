@@ -182,10 +182,10 @@ class LambdaGame {
         }
 
         const p1Power = attack1 - Math.floor(defense2 / 2);
-        line = `${this.player1.name}'s Power Points: ${attack1} - ${defense2} // 2 ==> ${p1Power}`;
+        line = `${this.player1.name}'s Power Points: ${attack1} - ${defense2} / 2 ==> ${p1Power}`;
         this._sendToPlayers(line);
         const p2Power = attack2 - Math.floor(defense1 / 2);
-        line = `${this.player2.name}'s Power Points: ${attack2} - ${defense1} // 2 ==> ${p2Power}`;
+        line = `${this.player2.name}'s Power Points: ${attack2} - ${defense1} / 2 ==> ${p2Power}`;
         this._sendToPlayers(line);
     }
 

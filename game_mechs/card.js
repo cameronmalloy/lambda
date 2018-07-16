@@ -7,7 +7,7 @@ class Card {
     }
 
     power(other_card) {
-        return this.attack - Math.floor(other_card.defense / 2);
+        return this.attack - (other_card.defense / 2);
     }
 
     effect(other_card, player, opponent) {
