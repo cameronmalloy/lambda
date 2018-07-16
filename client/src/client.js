@@ -8,6 +8,7 @@ const writeEvent = (text) => {
     const el = document.createElement('li');
     el.innerHTML = text;
     parent.appendChild(el);
+    console.log(scroll);
     scrollDown();
 };
 
@@ -51,6 +52,11 @@ const scrollDown = () => {
     element.scrollTop = element.scrollHeight;
 }
 
+const scrollTop = () => {
+    let element = document.getElementById("events");
+    element.scrollTop = 0;
+};
+
 const onFormSubmitted = (e) => {
     e.preventDefault();
     const input = document.querySelector('#chat');
@@ -77,11 +83,18 @@ const onSecretSubmitted = (e) => {
     document.querySelector('#secret-button').disabled = true;
     document.querySelector('#secret-word').disabled = true;
     //document.querySelector('#secret-word').value = 'Disabled';
-    document.querySelector('#name-word').disabled = true;
     //document.querySelector('#name-word').value = 'Disabled';
 
     sock.emit('secret', [name, secret]);
 };
+
+const onNameSubmitted = (e) => {
+    e.preventDefault();
+    const nameDoc = document.querySelector('#name-word');
+    const name = nameDoc.value;
+    name.value = '';
+    document.querySelector('#name-word').disabled = true;
+}
 
 const addButtonListeners = () => {
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].forEach((id) => {
@@ -98,7 +111,10 @@ sock.on('global-message', writeEventGlobal);
 sock.on('updateCards', writeCards);
 sock.on('updateScroll', scrollDown);
 
-writeEvent(`Rules: Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player based on this formula: Player's attack - (opponent's defense // 2)`);
+writeEvent(`<b>Set name (for global chat and player name). Then set you're secret word to connect to your partner. Use the global chat if you want to find someone online.</b>`);
+writeEvent(`<b>*** To change name, secret, or start a new game, refresh page. Refreshing page will make the game come to a halt and you can't reconnect :(.***</b>`);
+writeEvent(`Rules:`);
+writeEvent(`Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player based on this formula: Player's attack - (opponent's defense // 2)`)
 writeEvent(`The winner of each round is the player with the highest power level.`);
 writeEvent(`The first one to win 5 rounds wins the game.`);
 writeEvent('Effects: Each staff member has a special effect:');
@@ -109,9 +125,11 @@ writeEvent(`Professors will add the opponent's attack and defense to the remaini
 writeEvent('========================================================================');
 writeEvent(`To start, type in a name and secret word into the boxes above and click enter. In order to connect to your opponent, you must have the same secret word when you hit 'Enter'. Press the numbered buttons to play cards in your hand (hand is displayed below numbered buttons)`);
 writeEvent('========================================================================');
+scrollTop();
 
 
 document.querySelector('#chat-form').addEventListener('submit', onFormSubmitted);
 document.querySelector('#secret-form').addEventListener('submit', onSecretSubmitted);
+document.querySelector('#name-form').addEventListener('submit', onNameSubmitted);
 
 addButtonListeners();
