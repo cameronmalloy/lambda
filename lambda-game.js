@@ -40,7 +40,6 @@ class LambdaGame {
         
         this.duel = new Game(this.player1, this.player2, 5);
         this._updateCards();
-        this._updateScroll();
     }
 
     _updateCards() {
@@ -61,25 +60,19 @@ class LambdaGame {
         this._players[playerIndex].emit('message', message);
     }
 
-    _updateScroll() {
-        this._players.forEach(player => player.emit('updateScroll'));
-    }
 
     _onTurn(playerIndex, turn) {
         if (this._turns[playerIndex] != null) {
             return;
         } else if ((playerIndex == 0) && ((this.player1.hand[turn - 1] == undefined) || (turn - 1 > this.player1.hand.length))) {
             this._sendToPlayer(0, 'Please pick a valid card');
-            this._updateScroll();
             return;
         } else if ((playerIndex == 1) && ((this.player2.hand[turn - 1] == undefined) || (turn - 1 > this.player2.hand.length))) {
             this._sendToPlayer(1, 'Please pick a valid card');
-            this._updateScroll();
             return;
         } else {
             this._turns[playerIndex] = turn - 1;
             this._sendToPlayer(playerIndex, `You selected card ${turn}`);
-            this._updateScroll();
             if (this._checkPlayTurn()) {
                 this._playTurn()
             }
@@ -151,7 +144,7 @@ class LambdaGame {
             this._endGame();
         }
 
-        this._updateScroll();
+        //this._updateScroll();
     }
 
     _printScore() {
@@ -199,7 +192,7 @@ class LambdaGame {
     _printEffects(name1, attack1, defense1, role1, name2, attack2, defense2, role2) {
         let line = '';
         if (role1 == 'tutor') {
-            line = `**Effect** ${name1} made ${this.player2.name} swap their last 3 cards :O`;
+            line = `**Effect** ${name1} made ${this.player2.name} swap their first 3 cards :O`;
             this._sendToPlayers(line);
         } else if (role1 == 'instructor') {
             line = `**Effect** ${name1} inspired the team members! Future draws for ${this.player1.name} will have +300 ATK and +300 DEF`;
@@ -213,7 +206,7 @@ class LambdaGame {
             this._sendToPlayers(line);
         }
         if (role2 == 'tutor') {
-            line = `**Effect** ${name2} made ${this.player1.name} swap their last 3 cards :O`;
+            line = `**Effect** ${name2} made ${this.player1.name} swap their first 3 cards :O`;
             this._sendToPlayers(line);
         } else if (role2 == 'instructor') {
             line = `**Effect** ${name2} inspired the team members! Future draws for ${this.player2.name} will have +300 ATK and +300 DEF`;

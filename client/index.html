@@ -9,14 +9,30 @@
         <div class="lambda-wrapper">
             <div class="secret">
                 <form id="secret-form">
-                    <input id="name-word" type="textbox" value="Name" onfocus="this.value='';" />
-                    <input id="secret-word" type="textbox" value="Secret Word" onfocus="this.value='';" />
+                    Name: 
+                    <input id="name-word" type="textbox" />
+                    Secret Word: 
+                    <input id="secret-word" type="textbox" />
                     <button id="secret-button">Enter</button>
                 </form>
             </div>
 
-            <ul id="events">
-            </ul>
+            <div class="events-wrapper">
+                <div id="events-title">
+                    Game Results
+                </div>
+                <div id="chat-title">
+                    Global Chat (Mostly to Find Partners)
+                </div>
+            </div>
+
+            <div class="events-wrapper">
+                <ul id="events">
+                </ul>
+
+                <ul id="global-events">
+                </ul>
+            </div>
 
             <div class="chat-wrapper">
                 <form id="chat-form">

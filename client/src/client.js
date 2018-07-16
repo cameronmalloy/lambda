@@ -1,4 +1,6 @@
 
+const colors = ['#FF147C', '#16BD4C', '#0813D2', '#DF260F', '#8B28B4', '#F8D149', '	#EA9709'];
+
 const writeEvent = (text) => {
     //ul elm
     const parent = document.querySelector('#events');
@@ -6,6 +8,18 @@ const writeEvent = (text) => {
     const el = document.createElement('li');
     el.innerHTML = text;
     parent.appendChild(el);
+    scrollDown();
+};
+
+const writeEventGlobal = (text) => {
+    //ul elm
+    const parent = document.querySelector('#global-events');
+    //li elm
+    const el = document.createElement('li');
+    el.innerHTML = text;
+    parent.appendChild(el);
+    const scrollEl = document.getElementById("global-events");
+    scrollEl.scrollTop = scrollEl.scrollHeight;
 };
 
 const writeCards = (array) => {
@@ -40,10 +54,16 @@ const scrollDown = () => {
 const onFormSubmitted = (e) => {
     e.preventDefault();
     const input = document.querySelector('#chat');
-    const text = input.value;
+    const inputValue = input.value;
     input.value = '';
+    let name = document.getElementById("name-word").value;
+    if (name == '') {
+        name = 'Anon.';
+    }
+    index = Math.floor(Math.random() * 8);
+    htmlText = `<b style="color: ${colors[index]}">` + name + "</b>" + ": " + inputValue;
 
-    sock.emit('message', text);
+    sock.emit('message', htmlText);
 };
 
 const onSecretSubmitted = (e) => {
@@ -56,9 +76,9 @@ const onSecretSubmitted = (e) => {
     secret.value = '';
     document.querySelector('#secret-button').disabled = true;
     document.querySelector('#secret-word').disabled = true;
-    document.querySelector('#secret-word').value = 'Disabled';
+    //document.querySelector('#secret-word').value = 'Disabled';
     document.querySelector('#name-word').disabled = true;
-    document.querySelector('#name-word').value = 'Disabled';
+    //document.querySelector('#name-word').value = 'Disabled';
 
     sock.emit('secret', [name, secret]);
 };
@@ -74,10 +94,13 @@ const addButtonListeners = () => {
 
 const sock = io();
 sock.on('message', writeEvent);
+sock.on('global-message', writeEventGlobal);
 sock.on('updateCards', writeCards);
 sock.on('updateScroll', scrollDown);
 
 writeEvent(`Rules: Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player based on this formula: Player's attack - (opponent's defense // 2)`);
+writeEvent(`The winner of each round is the player with the highest power level.`);
+writeEvent(`The first one to win 5 rounds wins the game.`);
 writeEvent('Effects: Each staff member has a special effect:');
 writeEvent('Tutors will make the opponent discard the first 3 cards in their hand and make the opponent redraw the 3.');
 writeEvent('TAs will swap the attack and defense of the opponent before power calculations.');

@@ -21,8 +21,7 @@ let matchMap = new Map();
 io.on('connection', (sock) => {
     
     sock.on('message', (text) => {
-        io.emit('message', text);
-        io.emit('updateScroll');
+        io.emit('global-message', text);
     });
 
     sock.on('secret', (key) => {
