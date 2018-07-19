@@ -139,7 +139,7 @@ sock.on('updateCards', writeCards);
 sock.on('updateScroll', scrollDown);
 
 //what to write before game starts
-writeEvent(`<b>Set name (for global chat and player name). Then set you're secret word to connect to your partner. Use the global chat if you want to find someone online.</b>`);
+writeEvent(`<b>Set name (for global chat and player name). Then find a partner and make sure you both enter the same secret word to connect and play! Use the global chat if you want to find someone online.</b>`);
 writeEvent(`<b>*** To change name, secret, or start a new game, refresh page. Refreshing page will make the game come to a halt and you can't reconnect :(.***</b>`);
 writeEvent(`Rules:`);
 writeEvent(`Each person will choose a staff member to throw out into the fray. Power levels will be calculated for each player based on this formula: Player's attack - (opponent's defense / 2)`)
